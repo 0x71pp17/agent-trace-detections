@@ -1,5 +1,9 @@
 # agent-trace-detections
 
+[![ci](https://github.com/0x71pp17/agent-trace-detections/actions/workflows/ci.yml/badge.svg)](https://github.com/0x71pp17/agent-trace-detections/actions/workflows/ci.yml)
+[![Go](https://img.shields.io/badge/go-1.23-00ADD8.svg?logo=go&logoColor=white)](go.mod)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 Detects cross-call and sequence-level attacks in agent execution traces. Each call in these attacks is
 individually permissible; the attack lives in the correlation across calls that a per-call reference
 monitor discards. This engine reconstructs that correlation from OpenTelemetry GenAI spans, applies a
