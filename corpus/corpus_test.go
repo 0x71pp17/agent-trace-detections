@@ -26,6 +26,7 @@ func TestFixtureMetrics(t *testing.T) {
 		"budget-spike":           {Signature: "budget-spike", Attacks: 3, Benign: 3, TP: 3, FP: 0, Recall: 1.0, FPRate: 0.0},
 		"lookup-then-contact":    {Signature: "lookup-then-contact", Attacks: 3, Benign: 3, TP: 3, FP: 1, Recall: 1.0, FPRate: 1.0 / 3.0},
 		"tool-definition-change": {Signature: "tool-definition-change", Attacks: 3, Benign: 3, TP: 3, FP: 0, Recall: 1.0, FPRate: 0.0},
+		"tool-shadowing":         {Signature: "tool-shadowing", Attacks: 3, Benign: 3, TP: 3, FP: 0, Recall: 1.0, FPRate: 0.0},
 		"write-then-exec":        {Signature: "write-then-exec", Attacks: 3, Benign: 6, TP: 3, FP: 3, Recall: 1.0, FPRate: 0.5},
 	}
 	if len(got) != len(want) {

@@ -1,8 +1,8 @@
 # agent-trace-detections
 
 [![ci](https://github.com/0x71pp17/agent-trace-detections/actions/workflows/ci.yml/badge.svg)](https://github.com/0x71pp17/agent-trace-detections/actions/workflows/ci.yml)
-[![Go](https://img.shields.io/badge/go-1.23-00ADD8.svg?logo=go&logoColor=white)](go.mod)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Go](https://img.shields.io/badge/go-1.23-00ADD8.svg?logo=go&logoColor=white)](go.mod)
 
 Detects cross-call and sequence-level attacks in agent execution traces. Each call in these attacks is
 individually permissible; the attack lives in the correlation across calls that a per-call reference
@@ -16,7 +16,7 @@ construction.
 
 ## Status
 
-Four signatures are implemented and measured against their twins on a self-authored fixture corpus,
+Five signatures are implemented and measured against their twins on a self-authored fixture corpus,
 spanning the cross-call and tool-integrity categories. The remaining signatures in `DESIGN.md` are specified and not yet
 implemented. Corpus validation currently runs on the fixture set below; running it on the
 AgentDojo-derived corpora is the next step, not a completed claim.
@@ -27,10 +27,10 @@ AgentDojo-derived corpora is the next step, not a completed claim.
 | budget-spike | cross-call (session-state) | yes |
 | lookup-then-contact | cross-call | yes |
 | tool-definition-change | tool-integrity | yes |
+| tool-shadowing | tool-integrity | yes |
 | memory-persist-then-activate, manufactured-consensus | cross-call | specified |
 | ingest-then-deviate | permitted-flow | specified |
 | provenance-laundering | bridge | specified |
-| tool-shadowing | tool-integrity | specified |
 
 ## Measured results
 
@@ -44,6 +44,7 @@ rates require production traces.
 | budget-spike | 1.00 | 0.00 | 3 / 3 |
 | lookup-then-contact | 1.00 | 0.33 | 3 / 3 |
 | tool-definition-change | 1.00 | 0.00 | 3 / 3 |
+| tool-shadowing | 1.00 | 0.00 | 3 / 3 |
 | write-then-exec | 1.00 | 0.50 | 3 / 6 |
 
 The write-then-exec false-positive rate is the point, not a defect. Half its benign cases are deploy
@@ -53,8 +54,8 @@ verdict; the content and entailment its structure cannot see are what the per-ca
 and a content classifier resolve. lookup-then-contact carries a smaller but real false-positive rate for
 the same reason: it clears a contact whose target the user named, but it fires on a contact the user
 requested only by description, since the address then came from the lookup rather than the request.
-budget-spike and tool-definition-change separate cleanly on these
-fixtures because their attacks cross a supplied baseline the benign cases stay within.
+budget-spike, tool-definition-change, and tool-shadowing separate cleanly on
+these fixtures because their attacks cross a supplied baseline the benign cases stay within.
 
 ## Input
 

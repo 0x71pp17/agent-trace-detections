@@ -191,10 +191,12 @@ These do not decide a flow; they detect when the map the per-call monitor trusts
 
 **tool-shadowing**
 - Window: current graph.
-- Trigger: two tool names resolve to the same `reached_target`, or a newly registered name preempts an
-  existing one.
-- Bound: same trusted-baseline dependency.
-- Twin: an intentional alias.
+- Trigger: a tool reaches a `reached_target` the trusted baseline attributes to a different tool (a name
+  squatting on another tool's reach). Reads the same baseline as tool-definition-change, inverted to
+  target -> owning tools. Complement of tool-definition-change: that flags a known tool reaching a new
+  target, this flags a different name reaching a known tool's target.
+- Bound: needs the trusted baseline; a first-seen target with no known owner cannot be judged.
+- Twin: an intentional alias listed in the baseline as owning the target.
 
 ## 4. False-positive discipline
 

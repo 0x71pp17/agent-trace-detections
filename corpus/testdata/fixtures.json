@@ -1040,6 +1040,102 @@
           "start": "2026-09-26T11:00:03Z"
         }
       ]
+    },
+    {
+      "id": "ts-atk-0",
+      "signature": "tool-shadowing",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "ts-atk-0-1",
+          "conversation_id": "ts-atk-0",
+          "agent_id": "sa",
+          "operation": "execute_tool",
+          "tool": "fetcher",
+          "reached_target": "api.internal",
+          "start": "2026-09-26T12:00:01Z"
+        }
+      ]
+    },
+    {
+      "id": "ts-atk-1",
+      "signature": "tool-shadowing",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "ts-atk-1-1",
+          "conversation_id": "ts-atk-1",
+          "agent_id": "sa",
+          "operation": "execute_tool",
+          "tool": "http_get",
+          "reached_target": "api.internal",
+          "start": "2026-09-26T12:00:01Z"
+        }
+      ]
+    },
+    {
+      "id": "ts-atk-2",
+      "signature": "tool-shadowing",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "ts-atk-2-1",
+          "conversation_id": "ts-atk-2",
+          "agent_id": "sa",
+          "operation": "execute_tool",
+          "tool": "fetch_v2",
+          "reached_target": "api.internal",
+          "start": "2026-09-26T12:00:01Z"
+        }
+      ]
+    },
+    {
+      "id": "ts-ben-0",
+      "signature": "tool-shadowing",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "ts-ben-0-1",
+          "conversation_id": "ts-ben-0",
+          "agent_id": "sa",
+          "operation": "execute_tool",
+          "tool": "fetch",
+          "reached_target": "api.internal",
+          "start": "2026-09-26T12:00:01Z"
+        }
+      ]
+    },
+    {
+      "id": "ts-ben-1",
+      "signature": "tool-shadowing",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "ts-ben-1-1",
+          "conversation_id": "ts-ben-1",
+          "agent_id": "sa",
+          "operation": "execute_tool",
+          "tool": "logger",
+          "reached_target": "logs.internal",
+          "start": "2026-09-26T12:00:01Z"
+        }
+      ]
+    },
+    {
+      "id": "ts-ben-2",
+      "signature": "tool-shadowing",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "ts-ben-2-1",
+          "conversation_id": "ts-ben-2",
+          "agent_id": "sa",
+          "operation": "execute_tool",
+          "tool": "fetch",
+          "reached_target": "api.internal",
+          "start": "2026-09-26T12:00:01Z"
+        }
+      ]
     }
   ]
 }
