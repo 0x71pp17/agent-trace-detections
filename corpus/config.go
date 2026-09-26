@@ -10,6 +10,7 @@ import "github.com/0x71pp17/agent-trace-detections/monitor"
 func FixtureMonitor() *monitor.Monitor {
 	return monitor.New(
 		monitor.NewWriteThenExec,
+		monitor.NewLookupThenContact,
 		monitor.NewBudgetSpike(5, nil),
 		monitor.NewToolDefinitionChange(map[string][]string{"fetch": {"api.internal"}}),
 	)

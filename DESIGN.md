@@ -41,6 +41,7 @@ rather than a code dependency:
 | `reached_target` | normalized destination actually touched (host, path, object) | this repo's spec |
 | `arg_taint` | trusted, untrusted.web, tenant.private, unknown (per argument) | broker Taint model |
 | `writer` | operator, user, tool.result, peer.agent (on a state write) | this repo's spec |
+| `surfaced_values` | normalized values a span brought into context; `writer` marks their provenance | this repo's spec |
 
 An event missing a required enrichment field for a given signature is reported as uncovered for that
 signature rather than silently passed, so coverage is honest.

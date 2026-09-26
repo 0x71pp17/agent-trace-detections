@@ -1,9 +1,5 @@
 # agent-trace-detections
 
-[![ci](https://github.com/0x71pp17/agent-trace-detections/actions/workflows/ci.yml/badge.svg)](https://github.com/0x71pp17/agent-trace-detections/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Go](https://img.shields.io/badge/go-1.23-00ADD8.svg?logo=go&logoColor=white)](go.mod)
-
 Detects cross-call and sequence-level attacks in agent execution traces. Each call in these attacks is
 individually permissible; the attack lives in the correlation across calls that a per-call reference
 monitor discards. This engine reconstructs that correlation from OpenTelemetry GenAI spans, applies a
@@ -16,8 +12,8 @@ construction.
 
 ## Status
 
-Three signatures are implemented and measured against their twins on a self-authored fixture corpus,
-one per detection category. The remaining signatures in `DESIGN.md` are specified and not yet
+Four signatures are implemented and measured against their twins on a self-authored fixture corpus,
+spanning the cross-call and tool-integrity categories. The remaining signatures in `DESIGN.md` are specified and not yet
 implemented. Corpus validation currently runs on the fixture set below; running it on the
 AgentDojo-derived corpora is the next step, not a completed claim.
 
@@ -25,8 +21,9 @@ AgentDojo-derived corpora is the next step, not a completed claim.
 |---|---|---|
 | write-then-exec | cross-call | yes |
 | budget-spike | cross-call (session-state) | yes |
+| lookup-then-contact | cross-call | yes |
 | tool-definition-change | tool-integrity | yes |
-| lookup-then-contact, memory-persist-then-activate, manufactured-consensus | cross-call | specified |
+| memory-persist-then-activate, manufactured-consensus | cross-call | specified |
 | ingest-then-deviate | permitted-flow | specified |
 | provenance-laundering | bridge | specified |
 | tool-shadowing | tool-integrity | specified |
@@ -41,6 +38,7 @@ rates require production traces.
 | Signature | Recall | FP rate | Attacks / Benign |
 |---|---|---|---|
 | budget-spike | 1.00 | 0.00 | 3 / 3 |
+| lookup-then-contact | 1.00 | 0.33 | 3 / 3 |
 | tool-definition-change | 1.00 | 0.00 | 3 / 3 |
 | write-then-exec | 1.00 | 0.50 | 3 / 6 |
 
@@ -48,13 +46,17 @@ The write-then-exec false-positive rate is the point, not a defect. Half its ben
 scripts that write a file and then execute it, which is structurally identical to the attack. This
 signature cannot separate them, so it is a detection signal for a layered decision, not a standalone
 verdict; the content and entailment its structure cannot see are what the per-call monitor's flow check
-and a content classifier resolve. budget-spike and tool-definition-change separate cleanly on these
+and a content classifier resolve. lookup-then-contact carries a smaller but real false-positive rate for
+the same reason: it clears a contact whose target the user named, but it fires on a contact the user
+requested only by description, since the address then came from the lookup rather than the request.
+budget-spike and tool-definition-change separate cleanly on these
 fixtures because their attacks cross a supplied baseline the benign cases stay within.
 
 ## Input
 
-A stream or batch of OpenTelemetry GenAI spans, grouped by `gen_ai.conversation.id`, plus four
-enrichment attributes the instrumentation supplies (`sink`, `reached_target`, `arg_taint`, `writer`).
+A stream or batch of OpenTelemetry GenAI spans, grouped by `gen_ai.conversation.id`, plus five
+enrichment attributes the instrumentation supplies (`sink`, `reached_target`, `arg_taint`, `writer`,
+`surfaced_values`; `writer` also marks the provenance of `surfaced_values`).
 The enrichment vocabulary is shared as a spec with the sibling broker and boundary-map projects, not as
 a code dependency. A span missing a required enrichment field is reported as `unclassified_spans`
 rather than passed silently.
@@ -67,6 +69,37 @@ go run ./cmd/replay -corpus corpus/testdata/fixtures.json
 
 # run the engine over a trace and emit detections (exit 1 when any fire)
 go run ./cmd/seqmon -in trace.json
+```
+
+## Example
+
+Input trace, two individually-permitted calls:
+
+```json
+[
+  {"span_id":"s1","conversation_id":"c1","operation":"execute_tool","tool":"fs_write","sink":"file.write","reached_target":"/tmp/payload.sh","start":"2026-09-26T10:00:01Z"},
+  {"span_id":"s2","conversation_id":"c1","operation":"execute_tool","tool":"shell","sink":"shell.exec","reached_target":"/tmp/payload.sh","start":"2026-09-26T10:00:02Z"}
+]
+```
+
+`go run ./cmd/seqmon -in trace.json` reports the composition and exits 1:
+
+```json
+{
+  "detections": [
+    {
+      "signature": "write-then-exec",
+      "category": "cross-call",
+      "spans": [
+        "s1",
+        "s2"
+      ],
+      "rationale": "shell.exec target /tmp/payload.sh was produced by an earlier file.write in the same conversation; a per-call decision sees two individually-permitted calls",
+      "twin": "a deploy agent writing a script then running it under a user instruction"
+    }
+  ],
+  "unclassified_spans": 0
+}
 ```
 
 ## Output

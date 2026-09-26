@@ -41,7 +41,7 @@ func run() int {
 		return 2
 	}
 
-	res := monitor.New(monitor.NewWriteThenExec).Run(events)
+	res := monitor.New(monitor.NewWriteThenExec, monitor.NewLookupThenContact).Run(events)
 	out, err := json.MarshalIndent(res, "", "  ")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "encode:", err)
