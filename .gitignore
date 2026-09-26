@@ -1,0 +1,15 @@
+# compiled command binaries
+/seqmon
+/replay
+*.exe
+
+# go test and coverage artifacts
+*.test
+*.out
+coverage.*
+
+# editor and OS cruft
+.DS_Store
+*.swp
+.idea/
+.vscode/
