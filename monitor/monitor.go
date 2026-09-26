@@ -16,11 +16,24 @@ type Signature interface {
 // Monitor runs a set of signatures over a batch of events.
 type Monitor struct {
 	constructors []func() Signature
+	// sessionCtors are cross-session signatures: the Monitor gives each a single
+	// instance per batch and feeds it every event in global time order, so it can
+	// correlate across the conversation boundary a per-conversation signature never
+	// sees.
+	sessionCtors []func() Signature
 }
 
 // New returns a Monitor that runs the given signature constructors.
 func New(constructors ...func() Signature) *Monitor {
 	return &Monitor{constructors: constructors}
+}
+
+// WithCrossSession registers cross-session signatures, which the Monitor runs
+// over all events in a batch (one instance, global time order) rather than fresh
+// per conversation. Returns the Monitor for chaining.
+func (m *Monitor) WithCrossSession(constructors ...func() Signature) *Monitor {
+	m.sessionCtors = append(m.sessionCtors, constructors...)
+	return m
 }
 
 // Result is the outcome of a run.
@@ -54,6 +67,20 @@ func (m *Monitor) Run(events []Event) Result {
 			sigs = append(sigs, c())
 		}
 		for _, e := range evs {
+			for _, s := range sigs {
+				res.Detections = append(res.Detections, s.Observe(e)...)
+			}
+		}
+	}
+	if len(m.sessionCtors) > 0 {
+		all := make([]Event, len(events))
+		copy(all, events)
+		sort.SliceStable(all, func(i, j int) bool { return all[i].Start.Before(all[j].Start) })
+		sigs := make([]Signature, 0, len(m.sessionCtors))
+		for _, c := range m.sessionCtors {
+			sigs = append(sigs, c())
+		}
+		for _, e := range all {
 			for _, s := range sigs {
 				res.Detections = append(res.Detections, s.Observe(e)...)
 			}

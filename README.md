@@ -16,7 +16,7 @@ construction.
 
 ## Status
 
-Seven signatures are implemented and measured against their twins on a self-authored fixture corpus,
+Eight signatures are implemented and measured against their twins on a self-authored fixture corpus,
 spanning all three categories (cross-call, permitted-flow, and tool-integrity). The remaining signatures in `DESIGN.md` are specified and not yet
 implemented. Corpus validation currently runs on the fixture set below; running it on the
 AgentDojo-derived corpora is the next step, not a completed claim.
@@ -30,7 +30,7 @@ AgentDojo-derived corpora is the next step, not a completed claim.
 | tool-shadowing | tool-integrity | yes |
 | ingest-then-deviate | permitted-flow | yes |
 | manufactured-consensus | cross-call | yes |
-| memory-persist-then-activate | cross-call | specified |
+| memory-persist-then-activate | cross-call (cross-session) | yes |
 | provenance-laundering | bridge | specified |
 
 ## Measured results
@@ -46,6 +46,7 @@ rates require production traces.
 | ingest-then-deviate | 1.00 | 0.75 | 3 / 4 |
 | lookup-then-contact | 1.00 | 0.33 | 3 / 3 |
 | manufactured-consensus | 1.00 | 0.25 | 3 / 4 |
+| memory-persist-then-activate | 1.00 | 0.25 | 3 / 4 |
 | tool-definition-change | 1.00 | 0.00 | 3 / 3 |
 | tool-shadowing | 1.00 | 0.00 | 3 / 3 |
 | write-then-exec | 1.00 | 0.50 | 3 / 6 |
@@ -62,7 +63,11 @@ fires whenever untrusted content was ingested and the agent then acted on a targ
 name, which happens legitimately whenever the user's request was broad. It is the clearest layered
 signal in the set; its residual is exactly what a content classifier reads. manufactured-consensus keeps a
 smaller real false-positive rate for a related reason: origin clustering cannot separate a sockpuppet
-cluster from one legitimate source that sends several messages about the same claim. budget-spike,
+cluster from one legitimate source that sends several messages about the same claim.
+memory-persist-then-activate carries the same 0.25 for the same shape of reason: a non-operator source
+that legitimately caches a value and reuses it in a later conversation is indistinguishable from one
+that plants a value for later activation. It is the only cross-session signature; the engine runs it
+over a whole batch of events rather than per conversation. budget-spike,
 tool-definition-change, and tool-shadowing separate cleanly on these fixtures because their attacks
 cross a supplied baseline the benign cases stay within.
 

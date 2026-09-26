@@ -23,5 +23,7 @@ func FixtureMonitor() *monitor.Monitor {
 		monitor.NewToolDefinitionChange(baseline),
 		monitor.NewToolShadowing(baseline),
 		monitor.NewManufacturedConsensus(3, 10*time.Second),
+	).WithCrossSession(
+		monitor.NewMemoryPersistThenActivate,
 	)
 }

@@ -136,14 +136,16 @@ Every rule here is a correlation of individually-permissible calls.
 - Bound: the baseline must be per-agent; a genuinely long task spikes too.
 - Twin: a long, user-initiated task.
 
-**memory-persist-then-activate**
-- Window: across conversations for the same agent or principal.
-- Trigger: a durable-memory write with `writer in {tool.result, peer.agent}`, then a later action driven
-  by that memory (possibly in a later conversation).
-- Derived state: durable-memory writes keyed by writer; linkage of later actions to memory reads.
-- Bound: linking a later action to a specific memory without content is hard; the strong, observable
-  signal is the non-operator writer of a durable-memory span. Activation linkage is best-effort.
-- Twin: user-requested memory ("remember X") later used as intended.
+**memory-persist-then-activate** (cross-session)
+- Window: across conversations in a batch. This is the only cross-session signature; the Monitor runs it
+  over all events in a batch (one instance, global time order) rather than fresh per conversation.
+- Trigger: a `memory_write` span with `writer in {tool.result, peer.agent}` persists a value
+  (`surfaced_values`), then a non-benign `execute_tool` in a *different* conversation reaches that value.
+- Derived state: persisted values keyed by value, carrying the writer and the conversation of the write.
+- Bound: linking an action to a specific memory without content is best-effort; the strong observable
+  signal is the non-operator writer. A non-operator source that legitimately caches a value and reuses it
+  later reads as a false positive (0.25 on the fixture corpus).
+- Twin: a value the user or operator wrote to memory, later used as intended.
 
 **manufactured-consensus**
 - Window: a tight time window (seconds) within a conversation.
