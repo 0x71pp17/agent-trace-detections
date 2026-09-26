@@ -1,6 +1,6 @@
 package corpus
 
-import "github.com/0x71pp17/agent-sequence-monitor/monitor"
+import "github.com/0x71pp17/agent-trace-detections/monitor"
 
 // FixtureMonitor is the monitor configuration the checked-in fixture corpus is
 // scored under. The budget threshold and the tool baseline are set to the values

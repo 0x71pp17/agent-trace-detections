@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/0x71pp17/agent-sequence-monitor/corpus"
+	"github.com/0x71pp17/agent-trace-detections/corpus"
 )
 
 func main() { os.Exit(run()) }

@@ -6,7 +6,7 @@ package corpus
 import (
 	"sort"
 
-	"github.com/0x71pp17/agent-sequence-monitor/monitor"
+	"github.com/0x71pp17/agent-trace-detections/monitor"
 )
 
 // Case is one conversation with a label and the signature it exercises.

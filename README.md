@@ -1,4 +1,4 @@
-# agent-sequence-monitor
+# agent-trace-detections
 
 Detects cross-call and sequence-level attacks in agent execution traces. Each call in these attacks is
 individually permissible; the attack lives in the correlation across calls that a per-call reference

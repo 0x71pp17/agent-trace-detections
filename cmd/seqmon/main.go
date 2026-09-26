@@ -9,7 +9,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/0x71pp17/agent-sequence-monitor/monitor"
+	"github.com/0x71pp17/agent-trace-detections/monitor"
 )
 
 func main() { os.Exit(run()) }

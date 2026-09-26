@@ -1,12 +1,10 @@
-# agent-sequence-monitor: design
+# agent-trace-detections: design
 
 Detects cross-call and sequence-level attacks in agent execution traces (OpenTelemetry GenAI spans)
 that a per-call reference monitor does not observe. Each individual call in these attacks is
 individually permissible; the attack lives in the correlation across calls that a stateless per-call
 decision discards. The engine reconstructs that correlation, applies a fixed rule set, and reports each
 finding with the correlated spans and a measured false-positive rate.
-
-Working name; `agent-sequence-monitor` is provisional.
 
 ## 1. Trace input schema
 
