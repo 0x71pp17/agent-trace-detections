@@ -41,7 +41,7 @@ func run() int {
 		return 2
 	}
 
-	res := monitor.New(monitor.NewWriteThenExec, monitor.NewLookupThenContact, monitor.NewIngestThenDeviate).
+	res := monitor.New(monitor.NewWriteThenExec, monitor.NewLookupThenContact, monitor.NewIngestThenDeviate, monitor.NewProvenanceLaundering).
 		WithCrossSession(monitor.NewMemoryPersistThenActivate).
 		Run(events)
 	out, err := json.MarshalIndent(res, "", "  ")

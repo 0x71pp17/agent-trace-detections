@@ -173,16 +173,16 @@ Every rule here is a correlation of individually-permissible calls.
 
 ### Bridge: provenance laundering (content-origin problem via a cross-call mechanism)
 
-**provenance-laundering**
-- Category: cross-call and permitted-flow both.
+**provenance-laundering** (bridge: cross-call and permitted-flow)
 - Window: one conversation.
-- Trigger: a value V first appears in a tool-result span with non-trusted taint, then V reappears as an
-  argument on a later call the per-call monitor would approve as trusted.
-- Derived state: values emitted by tool results, matched against later approved arguments.
-- Bound: reusing a tool-result value as a later argument is extremely common, so this is
-  false-positive-prone; the discriminator is whether the reuse crosses a trust boundary the per-call
-  taint dropped. Measure it.
-- Twin: legitimate reuse of a tool-result value as a subsequent argument.
+- Trigger: a value V is surfaced by a `writer=tool.result` span (an untrusted origin), then V reappears
+  as the `reached_target` of a later `execute_tool` whose `arg_taints` include `trusted`. The taint
+  changed from untrusted origin to trusted on reuse.
+- Derived state: values emitted by tool results, matched against later trusted arguments.
+- Bound: reusing a tool-result value as a later argument is common, so the discriminator is narrow (the
+  taint crossing). A legitimately validated tool-result value that is genuinely trusted on reuse reads
+  as a false positive (0.25 on the fixture corpus).
+- Twin: legitimate reuse of a tool-result value that is genuinely trusted on reuse.
 
 ### Category 3: tool-surface integrity (not a flow miss; the monitor's Policy inputs going stale)
 

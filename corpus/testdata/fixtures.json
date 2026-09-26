@@ -1894,6 +1894,210 @@
           "start": "2026-09-26T15:00:02Z"
         }
       ]
+    },
+    {
+      "id": "pl-atk-0",
+      "signature": "provenance-laundering",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "pl-atk-0-e",
+          "conversation_id": "pl-atk-0",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "attacker0@evil.example"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        },
+        {
+          "span_id": "pl-atk-0-r",
+          "conversation_id": "pl-atk-0",
+          "agent_id": "pl",
+          "operation": "execute_tool",
+          "sink": "file.write",
+          "reached_target": "attacker0@evil.example",
+          "tool": "write_config",
+          "arg_taints": [
+            "trusted"
+          ],
+          "start": "2026-09-26T16:00:02Z"
+        }
+      ]
+    },
+    {
+      "id": "pl-atk-1",
+      "signature": "provenance-laundering",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "pl-atk-1-e",
+          "conversation_id": "pl-atk-1",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "attacker1@evil.example"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        },
+        {
+          "span_id": "pl-atk-1-r",
+          "conversation_id": "pl-atk-1",
+          "agent_id": "pl",
+          "operation": "execute_tool",
+          "sink": "file.write",
+          "reached_target": "attacker1@evil.example",
+          "tool": "write_config",
+          "arg_taints": [
+            "trusted"
+          ],
+          "start": "2026-09-26T16:00:02Z"
+        }
+      ]
+    },
+    {
+      "id": "pl-atk-2",
+      "signature": "provenance-laundering",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "pl-atk-2-e",
+          "conversation_id": "pl-atk-2",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "attacker2@evil.example"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        },
+        {
+          "span_id": "pl-atk-2-r",
+          "conversation_id": "pl-atk-2",
+          "agent_id": "pl",
+          "operation": "execute_tool",
+          "sink": "file.write",
+          "reached_target": "attacker2@evil.example",
+          "tool": "write_config",
+          "arg_taints": [
+            "trusted"
+          ],
+          "start": "2026-09-26T16:00:02Z"
+        }
+      ]
+    },
+    {
+      "id": "pl-keep-0",
+      "signature": "provenance-laundering",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "pl-keep-0-e",
+          "conversation_id": "pl-keep-0",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "v0@corp.internal"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        },
+        {
+          "span_id": "pl-keep-0-r",
+          "conversation_id": "pl-keep-0",
+          "agent_id": "pl",
+          "operation": "execute_tool",
+          "sink": "file.write",
+          "reached_target": "v0@corp.internal",
+          "tool": "write_config",
+          "arg_taints": [
+            "untrusted.web"
+          ],
+          "start": "2026-09-26T16:00:02Z"
+        }
+      ]
+    },
+    {
+      "id": "pl-keep-1",
+      "signature": "provenance-laundering",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "pl-keep-1-e",
+          "conversation_id": "pl-keep-1",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "v1@corp.internal"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        },
+        {
+          "span_id": "pl-keep-1-r",
+          "conversation_id": "pl-keep-1",
+          "agent_id": "pl",
+          "operation": "execute_tool",
+          "sink": "file.write",
+          "reached_target": "v1@corp.internal",
+          "tool": "write_config",
+          "arg_taints": [
+            "untrusted.web"
+          ],
+          "start": "2026-09-26T16:00:02Z"
+        }
+      ]
+    },
+    {
+      "id": "pl-none-0",
+      "signature": "provenance-laundering",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "pl-none-0-e",
+          "conversation_id": "pl-none-0",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "note@corp.internal"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        }
+      ]
+    },
+    {
+      "id": "pl-legit-0",
+      "signature": "provenance-laundering",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "pl-legit-0-e",
+          "conversation_id": "pl-legit-0",
+          "agent_id": "pl",
+          "operation": "retrieval",
+          "writer": "tool.result",
+          "surfaced_values": [
+            "validated@corp.internal"
+          ],
+          "start": "2026-09-26T16:00:01Z"
+        },
+        {
+          "span_id": "pl-legit-0-r",
+          "conversation_id": "pl-legit-0",
+          "agent_id": "pl",
+          "operation": "execute_tool",
+          "sink": "file.write",
+          "reached_target": "validated@corp.internal",
+          "tool": "write_config",
+          "arg_taints": [
+            "trusted"
+          ],
+          "start": "2026-09-26T16:00:02Z"
+        }
+      ]
     }
   ]
 }

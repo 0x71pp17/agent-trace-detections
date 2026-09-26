@@ -46,6 +46,7 @@ const (
 	CategoryCrossCall     Category = "cross-call"
 	CategoryPermittedFlow Category = "permitted-flow"
 	CategoryToolIntegrity Category = "tool-integrity"
+	CategoryBridge        Category = "bridge"
 )
 
 // Event is one normalized span from an agent execution trace.

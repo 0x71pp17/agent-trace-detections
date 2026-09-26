@@ -19,6 +19,7 @@ func FixtureMonitor() *monitor.Monitor {
 		monitor.NewWriteThenExec,
 		monitor.NewLookupThenContact,
 		monitor.NewIngestThenDeviate,
+		monitor.NewProvenanceLaundering,
 		monitor.NewBudgetSpike(5, nil),
 		monitor.NewToolDefinitionChange(baseline),
 		monitor.NewToolShadowing(baseline),
