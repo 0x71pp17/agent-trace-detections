@@ -42,6 +42,7 @@ rather than a code dependency:
 | `arg_taint` | trusted, untrusted.web, tenant.private, unknown (per argument) | broker Taint model |
 | `writer` | operator, user, tool.result, peer.agent (on a state write) | this repo's spec |
 | `surfaced_values` | normalized values a span brought into context; `writer` marks their provenance | this repo's spec |
+| `peer_origin` | the origin an inbound peer message clusters to | this repo's spec |
 
 An event missing a required enrichment field for a given signature is reported as uncovered for that
 signature rather than silently passed, so coverage is honest.
@@ -145,12 +146,14 @@ Every rule here is a correlation of individually-permissible calls.
 - Twin: user-requested memory ("remember X") later used as intended.
 
 **manufactured-consensus**
-- Window: a tight time window (seconds) within a conversation or agent graph.
-- Trigger: N or more inbound peer-message spans assert the same claim or target to one agent, and the
-  senders cluster to a shared origin within T seconds.
-- Derived state: inbound peer-message clusters.
-- Bound: MCP carries no peer identity, so origin clustering is heuristic.
-- Twin: genuine corroboration from independent sources.
+- Window: a tight time window (seconds) within a conversation.
+- Trigger: minCluster or more inbound peer-message spans (`writer=peer.agent`) assert the same claim
+  (`surfaced_values`) with the same `peer_origin`, within the window. Consumes the `peer_origin`
+  enrichment.
+- Derived state: inbound peer-message clusters keyed by claim and origin.
+- Bound: MCP carries no peer identity, so origin clustering is heuristic; it also flags one legitimate
+  source that sends several messages about the same claim (FP 0.25 on the fixture corpus).
+- Twin: genuine corroboration from independent sources (distinct origins).
 
 ### Category 2: permitted-flow deviation (the per-call monitor's content miss, partially covered)
 

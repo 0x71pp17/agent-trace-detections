@@ -63,6 +63,7 @@ type Event struct {
 	ArgTaints      []Taint   `json:"arg_taints"`      // enrichment (broker vocabulary), per argument
 	Writer         Writer    `json:"writer"`          // enrichment: on a state write
 	SurfacedValues []string  `json:"surfaced_values"` // enrichment: values this span brought into context; Writer marks their provenance
+	PeerOrigin     string    `json:"peer_origin"`     // enrichment: the origin an inbound peer message clusters to
 	InputTokens    int       `json:"input_tokens"`    // gen_ai.usage.input_tokens
 	OutputTokens   int       `json:"output_tokens"`   // gen_ai.usage.output_tokens
 	Start          time.Time `json:"start"`

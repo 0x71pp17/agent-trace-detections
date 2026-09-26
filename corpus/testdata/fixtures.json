@@ -1409,6 +1409,295 @@
           "start": "2026-09-26T13:00:03Z"
         }
       ]
+    },
+    {
+      "id": "mc-atk-0",
+      "signature": "manufactured-consensus",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "mc-atk-0-1",
+          "conversation_id": "mc-atk-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim0"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-atk-0-2",
+          "conversation_id": "mc-atk-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim0"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:02Z"
+        },
+        {
+          "span_id": "mc-atk-0-3",
+          "conversation_id": "mc-atk-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim0"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:03Z"
+        }
+      ]
+    },
+    {
+      "id": "mc-atk-1",
+      "signature": "manufactured-consensus",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "mc-atk-1-1",
+          "conversation_id": "mc-atk-1",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim1"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-atk-1-2",
+          "conversation_id": "mc-atk-1",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim1"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:02Z"
+        },
+        {
+          "span_id": "mc-atk-1-3",
+          "conversation_id": "mc-atk-1",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim1"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:03Z"
+        }
+      ]
+    },
+    {
+      "id": "mc-atk-2",
+      "signature": "manufactured-consensus",
+      "label": "attack",
+      "events": [
+        {
+          "span_id": "mc-atk-2-1",
+          "conversation_id": "mc-atk-2",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim2"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-atk-2-2",
+          "conversation_id": "mc-atk-2",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim2"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:02Z"
+        },
+        {
+          "span_id": "mc-atk-2-3",
+          "conversation_id": "mc-atk-2",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim2"
+          ],
+          "peer_origin": "botnet",
+          "start": "2026-09-26T14:00:03Z"
+        }
+      ]
+    },
+    {
+      "id": "mc-gen-0",
+      "signature": "manufactured-consensus",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "mc-gen-0-1",
+          "conversation_id": "mc-gen-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim0"
+          ],
+          "peer_origin": "src-a",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-gen-0-2",
+          "conversation_id": "mc-gen-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim0"
+          ],
+          "peer_origin": "src-b",
+          "start": "2026-09-26T14:00:02Z"
+        },
+        {
+          "span_id": "mc-gen-0-3",
+          "conversation_id": "mc-gen-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim0"
+          ],
+          "peer_origin": "src-c",
+          "start": "2026-09-26T14:00:03Z"
+        }
+      ]
+    },
+    {
+      "id": "mc-gen-1",
+      "signature": "manufactured-consensus",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "mc-gen-1-1",
+          "conversation_id": "mc-gen-1",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim1"
+          ],
+          "peer_origin": "src-a",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-gen-1-2",
+          "conversation_id": "mc-gen-1",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim1"
+          ],
+          "peer_origin": "src-b",
+          "start": "2026-09-26T14:00:02Z"
+        },
+        {
+          "span_id": "mc-gen-1-3",
+          "conversation_id": "mc-gen-1",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claim1"
+          ],
+          "peer_origin": "src-c",
+          "start": "2026-09-26T14:00:03Z"
+        }
+      ]
+    },
+    {
+      "id": "mc-two-0",
+      "signature": "manufactured-consensus",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "mc-two-0-1",
+          "conversation_id": "mc-two-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claimT"
+          ],
+          "peer_origin": "svc",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-two-0-2",
+          "conversation_id": "mc-two-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "claimT"
+          ],
+          "peer_origin": "svc",
+          "start": "2026-09-26T14:00:02Z"
+        }
+      ]
+    },
+    {
+      "id": "mc-burst-0",
+      "signature": "manufactured-consensus",
+      "label": "benign",
+      "events": [
+        {
+          "span_id": "mc-burst-0-1",
+          "conversation_id": "mc-burst-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "incident-42"
+          ],
+          "peer_origin": "monitoring",
+          "start": "2026-09-26T14:00:01Z"
+        },
+        {
+          "span_id": "mc-burst-0-2",
+          "conversation_id": "mc-burst-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "incident-42"
+          ],
+          "peer_origin": "monitoring",
+          "start": "2026-09-26T14:00:02Z"
+        },
+        {
+          "span_id": "mc-burst-0-3",
+          "conversation_id": "mc-burst-0",
+          "agent_id": "ma",
+          "operation": "receive_message",
+          "writer": "peer.agent",
+          "surfaced_values": [
+            "incident-42"
+          ],
+          "peer_origin": "monitoring",
+          "start": "2026-09-26T14:00:03Z"
+        }
+      ]
     }
   ]
 }
