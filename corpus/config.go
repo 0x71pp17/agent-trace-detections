@@ -14,6 +14,7 @@ func FixtureMonitor() *monitor.Monitor {
 	return monitor.New(
 		monitor.NewWriteThenExec,
 		monitor.NewLookupThenContact,
+		monitor.NewIngestThenDeviate,
 		monitor.NewBudgetSpike(5, nil),
 		monitor.NewToolDefinitionChange(baseline),
 		monitor.NewToolShadowing(baseline),

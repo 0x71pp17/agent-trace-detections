@@ -155,13 +155,15 @@ Every rule here is a correlation of individually-permissible calls.
 ### Category 2: permitted-flow deviation (the per-call monitor's content miss, partially covered)
 
 **ingest-then-deviate**
-- Window: one turn or conversation.
-- Trigger: a read/retrieval span carries external content (`arg_taint=untrusted.web`), then the agent
-  takes an action (`execute_tool` with a non-benign `sink`) whose target or type was not present in the
-  user request span.
-- Derived state: the user-request target/type set for the turn.
-- Bound: behavioral shadow only. The engine cannot read the injection; entailment is heuristic and this
-  is the highest-false-positive signature. Its residual is where the content classifier takes over.
+- Window: one conversation.
+- Trigger: a read span carries external content (`arg_taint=untrusted.web`), then an `execute_tool` with
+  a non-benign `sink` reaches a target the user did not name (`writer=user` `surfaced_values`), after the
+  ingestion. First signature to consume `arg_taint`; reuses the user-named machinery of
+  lookup-then-contact.
+- Derived state: an ingestion flag, and the user-named target set for the conversation.
+- Bound: behavioral shadow only. The engine cannot read the injection; entailment is heuristic, so this
+  is the highest-false-positive signature (0.75 on the fixture corpus). Its residual is where a content
+  classifier takes over.
 - Twin: external content that legitimately prompts a user-requested action.
 
 ### Bridge: provenance laundering (content-origin problem via a cross-call mechanism)

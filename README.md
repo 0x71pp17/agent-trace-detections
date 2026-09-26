@@ -16,8 +16,8 @@ construction.
 
 ## Status
 
-Five signatures are implemented and measured against their twins on a self-authored fixture corpus,
-spanning the cross-call and tool-integrity categories. The remaining signatures in `DESIGN.md` are specified and not yet
+Six signatures are implemented and measured against their twins on a self-authored fixture corpus,
+spanning all three categories (cross-call, permitted-flow, and tool-integrity). The remaining signatures in `DESIGN.md` are specified and not yet
 implemented. Corpus validation currently runs on the fixture set below; running it on the
 AgentDojo-derived corpora is the next step, not a completed claim.
 
@@ -28,8 +28,8 @@ AgentDojo-derived corpora is the next step, not a completed claim.
 | lookup-then-contact | cross-call | yes |
 | tool-definition-change | tool-integrity | yes |
 | tool-shadowing | tool-integrity | yes |
+| ingest-then-deviate | permitted-flow | yes |
 | memory-persist-then-activate, manufactured-consensus | cross-call | specified |
-| ingest-then-deviate | permitted-flow | specified |
 | provenance-laundering | bridge | specified |
 
 ## Measured results
@@ -42,6 +42,7 @@ rates require production traces.
 | Signature | Recall | FP rate | Attacks / Benign |
 |---|---|---|---|
 | budget-spike | 1.00 | 0.00 | 3 / 3 |
+| ingest-then-deviate | 1.00 | 0.75 | 3 / 4 |
 | lookup-then-contact | 1.00 | 0.33 | 3 / 3 |
 | tool-definition-change | 1.00 | 0.00 | 3 / 3 |
 | tool-shadowing | 1.00 | 0.00 | 3 / 3 |
@@ -54,8 +55,12 @@ verdict; the content and entailment its structure cannot see are what the per-ca
 and a content classifier resolve. lookup-then-contact carries a smaller but real false-positive rate for
 the same reason: it clears a contact whose target the user named, but it fires on a contact the user
 requested only by description, since the address then came from the lookup rather than the request.
-budget-spike, tool-definition-change, and tool-shadowing separate cleanly on
-these fixtures because their attacks cross a supplied baseline the benign cases stay within.
+ingest-then-deviate carries the highest false-positive rate, 0.75 on these fixtures, and by design: it
+fires whenever untrusted content was ingested and the agent then acted on a target the user did not
+name, which happens legitimately whenever the user's request was broad. It is the clearest layered
+signal in the set; its residual is exactly what a content classifier reads. budget-spike,
+tool-definition-change, and tool-shadowing separate cleanly on these fixtures because their attacks
+cross a supplied baseline the benign cases stay within.
 
 ## Input
 
